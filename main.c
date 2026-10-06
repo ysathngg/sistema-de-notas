@@ -1,98 +1,108 @@
 #include 
 
 int main() {
-    float notas[100]; // Vetor para armazenar ate 100 notas
-    int total_notas = 0;
-    int opcao = 0;
+    float precos_encomendas[100];
+    int qtd_encomendas = 0;
+    int opcao_menu = 0;
 
-    while (opcao != 5) {
-        printf("\n--- MENU DE NOTAS (CRUD) ---\n");
-        printf("1 - Cadastrar nota\n");
-        printf("2 - Listar notas\n");
-        printf("3 - Modificar nota\n");
-        printf("4 - Excluir nota\n");
-        printf("5 - Sair\n");
-        printf("Escolha uma opcao: ");
-        scanf("%d", &opcao);
+    while (opcao_menu != 5) {
+        printf("\n========================================\n");
+        printf("    ATELIÊ YSA PERSONALIZADOS - CRUD    \n");
+        printf("========================================\n");
+        printf("1. Registrar valor de nova encomenda\n");
+        printf("2. Consultar todas as encomendas\n");
+        printf("3. Atualizar valor de encomenda\n");
+        printf("4. Cancelar/Remover encomenda\n");
+        printf("5. Sair do sistema\n");
+        printf("----------------------------------------\n");
+        printf("Digite a opcao desejada: ");
+        scanf("%d", &opcao_menu);
 
-        switch (opcao) {
+        switch (opcao_menu) {
             case 1:
-                if (total_notas < 100) {
-                    printf("Digite a nota (0 a 10): ");
-                    scanf("%f", &notas[total_notas]);
-                    if (notas[total_notas] >= 0 && notas[total_notas] <= 10) {
-                        total_notas++;
-                        printf("Nota cadastrada com sucesso!\n");
+                if (qtd_encomendas < 100) {
+                    printf("\n[NOVA ENCOMENDA]\n");
+                    printf("Informe o valor do item personalizado (R$): ");
+                    scanf("%f", &precos_encomendas[qtd_encomendas]);
+                    
+                    if (precos_encomendas[qtd_encomendas] > 0) {
+                        qtd_encomendas++;
+                        printf(">> Encomenda registrada com sucesso no Ysa Personalizados!\n");
                     } else {
-                        printf("Nota invalida! Deve ser entre 0 e 10.\n");
+                        printf(">> Atencao: O valor precisa ser maior que R$ 0.00.\n");
                     }
                 } else {
-                    printf("Limite de notas atingido!\n");
+                    printf(">> Capacidade maxima de 100 encomendas atingida!\n");
                 }
                 break;
 
             case 2:
-                if (total_notas == 0) {
-                    printf("Nenhuma nota cadastrada ate o momento.\n");
+                if (qtd_encomendas == 0) {
+                    printf("\n>> Nenhuma encomenda registrada no momento.\n");
                 } else {
-                    printf("\n--- LISTA DE NOTAS ---\n");
+                    printf("\n========================================\n");
+                    printf("       ENCOMENDAS REGISTRADAS           \n");
+                    printf("========================================\n");
                     int i = 0;
-                    while (i < total_notas) {
-                        printf("Indice %d: Nota = %.2f\n", i, notas[i]);
+                    while (i < qtd_encomendas) {
+                        printf("ID %d | Valor: R$ %.2f\n", i, precos_encomendas[i]);
                         i++;
                     }
                 }
                 break;
 
             case 3:
-                if (total_notas == 0) {
-                    printf("Nenhuma nota para modificar.\n");
+                if (qtd_encomendas == 0) {
+                    printf("\n>> Nao ha encomendas para atualizar.\n");
                 } else {
-                    int indice;
-                    printf("Digite o indice da nota que deseja modificar: ");
-                    scanf("%d", &indice);
+                    int id_busca;
+                    printf("\n[ATUALIZAR VALOR]\n");
+                    printf("Digite o ID da encomenda que deseja alterar: ");
+                    scanf("%d", &id_busca);
 
-                    if (indice >= 0 && indice < total_notas) {
-                        printf("Digite a nova nota: ");
-                        scanf("%f", &notas[indice]);
-                        printf("Nota modificada com sucesso!\n");
+                    if (id_busca >= 0 && id_busca < qtd_encomendas) {
+                        printf("Digite o novo valor para a encomenda ID %d: R$ ", id_busca);
+                        scanf("%f", &precos_encomendas[id_busca]);
+                        printf(">> Valor da encomenda atualizado com sucesso!\n");
                     } else {
-                        printf("Indice nao encontrado!\n");
+                        printf(">> Erro: ID de encomenda nao encontrado.\n");
                     }
                 }
                 break;
 
             case 4:
-                if (total_notas == 0) {
-                    printf("Nenhuma nota para excluir.\n");
+                if (qtd_encomendas == 0) {
+                    printf("\n>> Nao ha encomendas para remover.\n");
                 } else {
-                    int indice;
-                    printf("Digite o indice da nota que deseja excluir: ");
-                    scanf("%d", &indice);
+                    int id_busca;
+                    printf("\n[REMOVER ENCOMENDA]\n");
+                    printf("Digite o ID da encomenda que deseja cancelar: ");
+                    scanf("%d", &id_busca);
 
-                    if (indice >= 0 && indice < total_notas) {
-                        int i = indice;
-                        while (i < total_notas - 1) {
-                            notas[i] = notas[i + 1];
+                    if (id_busca >= 0 && id_busca < qtd_encomendas) {
+                        int i = id_busca;
+                        while (i < qtd_encomendas - 1) {
+                            precos_encomendas[i] = precos_encomendas[i + 1];
                             i++;
                         }
-                        total_notas--;
-                        printf("Nota excluida com sucesso!\n");
+                        qtd_encomendas--;
+                        printf(">> Encomenda ID %d removida do sistema.\n", id_busca);
                     } else {
-                        printf("Indice nao encontrado!\n");
+                        printf(">> Erro: ID de encomenda nao encontrado.\n");
                     }
                 }
                 break;
 
             case 5:
-                printf("Saindo do programa... Ate mais!\n");
+                printf("\nEncerrando o sistema do Atelie Ysa Personalizados... Ate breve!\n");
                 break;
 
             default:
-                printf("Opcao invalida! Tente novamente.\n");
+                printf("\n>> Opcao invalida! Escolha um numero de 1 a 5.\n");
                 break;
         }
     }
 
     return 0;
 }
+    
