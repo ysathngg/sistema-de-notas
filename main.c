@@ -1,4 +1,4 @@
-#include 
+#include <stdio.h>
 
 int main() {
     float precos_encomendas[100];
